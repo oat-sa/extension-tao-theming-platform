@@ -20,6 +20,6 @@
  */
                
 require_once dirname(__FILE__). '/../tao/includes/class.Bootstrap.php';
-$bootStrap = new BootStrap('themingPlatform');
+$bootStrap = new BootStrap('taoThemingPlatform');
 $bootStrap->start();
 $bootStrap->dispatch();
