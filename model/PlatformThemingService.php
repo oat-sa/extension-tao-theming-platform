@@ -29,7 +29,7 @@ use \tao_models_classes_Service;
  * @author Dieter Raber <dieter@taotesting.com>
  * @author Antoine Robin <antoine.robin@vesperiagroup.com>
  */
-class Service extends tao_models_classes_Service
+class PlatformThemingService extends tao_models_classes_Service
 {
     
 }
