@@ -25,7 +25,9 @@ return array(
     'license' => 'GPL-2.0',
     'version' => '0.0.0',
 	'author' => 'Open Assessment Technologies SA',
-	'requires' => array(),
+	'requires' => array(
+        'taoDataUri' => '>=0.0.0'
+    ),
 	// for compatibility
 	'dependencies' => array('tao'),
 	'managementRole' => 'http://www.tao.lu/Ontologies/generis.rdf#taoThemingPlatformManager',
@@ -50,7 +52,7 @@ return array(
 		'BASE_URL' => ROOT_URL.'taoThemingPlatform/',
 	    
 	    #BASE WWW required by JS
-	    'BASE_WWW' => ROOT_URL.'taoThhemingPlatform/views/'
+	    'BASE_WWW' => ROOT_URL.'taoThemingPlatform/views/'
 	),
     'extra' => array(
         'structures' => dirname(__FILE__).DIRECTORY_SEPARATOR.'controller'.DIRECTORY_SEPARATOR.'structures.xml',
