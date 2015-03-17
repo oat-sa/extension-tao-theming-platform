@@ -42,6 +42,6 @@ class Main extends \tao_actions_CommonModule {
      * Main Controller Action.
      */
     public function index() {
-        echo "In Action!";    
+        $this->setView('index.tpl');
     }
 }
