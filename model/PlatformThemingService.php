@@ -78,12 +78,16 @@ class PlatformThemingService extends tao_models_classes_Service
         } else {
             $ext = common_ext_ExtensionsManager::singleton()->getExtensionById('taoThemingPlatform');
             $jsonConfig = $ext->getConfig(self::CONFIG_KEY_CONF);
-            $arrayConfig = json_decode($jsonConfig, true);
+            
+            $arrayConfig = array();
+            if (empty($jsonConfig) === false) {
+                $arrayConfig = json_decode($jsonConfig, true);
+            }
             
             $themingConfig = new PlatformThemingConfig($arrayConfig);
             $this->themingConfigMemCache = $themingConfig;
             
-            return $themingConfig;
+            return clone $themingConfig;
         }
     }
     
@@ -99,6 +103,7 @@ class PlatformThemingService extends tao_models_classes_Service
     {
         $ext = common_ext_ExtensionsManager::singleton()->getExtensionById('taoThemingPlatform');
         $ext->setConfig(self::CONFIG_KEY_CONF, json_encode($config->getArrayCopy()));
+        $this->themingConfigMemCache = $config;
     }
     
     /**
@@ -115,8 +120,11 @@ class PlatformThemingService extends tao_models_classes_Service
     /**
      * Get a reference on the data storage directory.
      * 
+     * You can call core_kernel_file_File::getAbsolutePath() and/or core_kernel_file_File::getRelativePath()
+     * on the return object to know where to store data assets.
+     * 
      * @return core_kernel_file_File
-     * @throws common_exception If no default repositr
+     * @throws common_exception If no default data storage directory is configured.
      */
     public function getDataDirectory()
     {

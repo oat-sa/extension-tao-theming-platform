@@ -21,6 +21,7 @@
 namespace oat\taoThemingPlatform\model;
 
 use \ArrayAccess;
+use \Countable;
 use \RangeException;
 use \OutOfRangeException;
 
@@ -38,7 +39,7 @@ use \OutOfRangeException;
  * @author Antoine Robin <antoine.robin@vesperiagroup.com>
  *
  */
-class PlatformThemingConfig implements ArrayAccess
+class PlatformThemingConfig implements ArrayAccess, Countable
 {
     /**
      * Data place holder for value storage.
@@ -195,5 +196,16 @@ class PlatformThemingConfig implements ArrayAccess
             unset($dataPlaceholder[$offset]);
             $this->setDataPlaceholder($dataPlaceholder);
         }
+    }
+    
+    /**
+     * Count the number of key/Theming Configuration Value pairs
+     * held by the object.
+     * 
+     * @return integer
+     */
+    public function count() {
+        $dataPlaceholder = $this->getDataPlaceholder();
+        return count($dataPlaceholder);
     }
 }
