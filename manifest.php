@@ -34,6 +34,11 @@ return array(
     'acl' => array(
         array('grant', 'http://www.tao.lu/Ontologies/generis.rdf#taoThemingPlatformManager', array('ext'=>'taoThemingPlatform')),
     ),
+    'local'	=> array(
+        'php'	=> array(
+            dirname(__FILE__).'/scripts/install/createDatasource.php',
+        )
+    ),
     'uninstall' => array(
     ),
     'autoload' => array (
