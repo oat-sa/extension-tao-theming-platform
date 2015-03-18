@@ -78,12 +78,16 @@ class PlatformThemingService extends tao_models_classes_Service
         } else {
             $ext = common_ext_ExtensionsManager::singleton()->getExtensionById('taoThemingPlatform');
             $jsonConfig = $ext->getConfig(self::CONFIG_KEY_CONF);
-            $arrayConfig = json_decode($jsonConfig, true);
+            
+            $arrayConfig = array();
+            if (empty($jsonConfig) === false) {
+                $arrayConfig = json_decode($jsonConfig, true);
+            }
             
             $themingConfig = new PlatformThemingConfig($arrayConfig);
             $this->themingConfigMemCache = $themingConfig;
             
-            return $themingConfig;
+            return clone $themingConfig;
         }
     }
     
@@ -99,6 +103,7 @@ class PlatformThemingService extends tao_models_classes_Service
     {
         $ext = common_ext_ExtensionsManager::singleton()->getExtensionById('taoThemingPlatform');
         $ext->setConfig(self::CONFIG_KEY_CONF, json_encode($config->getArrayCopy()));
+        $this->themingConfigMemCache = $config;
     }
     
     /**
