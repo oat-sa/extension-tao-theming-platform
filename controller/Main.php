@@ -21,6 +21,10 @@
 
 namespace oat\taoThemingPlatform\controller;
 
+use \tao_actions_CommonModule;
+use \tao_helpers_File;
+use \oat\taoThemingPlatform\model\PlatformThemingService;
+
 /**
  * Main Controller of the Extension.
  *
@@ -29,7 +33,7 @@ namespace oat\taoThemingPlatform\controller;
  * @license GPL-2.0
  *
  */
-class Main extends \tao_actions_CommonModule {
+class Main extends tao_actions_CommonModule {
 
     /**
      * initialize the Controller.
@@ -43,5 +47,25 @@ class Main extends \tao_actions_CommonModule {
      */
     public function index() {
         $this->setView('index.tpl');
+    }
+    
+    /**
+     * Get a file from the data directory as the HTTP response with the appropriate
+     * content-type header set.
+     */
+    public function getFile() {
+        $file = $this->getRequestParameter('file');
+        $service = PlatformThemingService::singleton();
+        $dataDirectory = $service->getDataDirectory();
+        
+        $finalPath = rtrim($dataDirectory->getAbsolutePath(), "\\/") . DIRECTORY_SEPARATOR . $file;
+        
+        if (tao_helpers_File::securityCheck($finalPath, true) === false) {
+            die();
+        }
+        
+        $mime = tao_helpers_File::getMimeType($finalPath, true);
+        header('Content-Type: ' . $mime);
+        echo file_get_contents($finalPath);
     }
 }
