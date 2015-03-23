@@ -137,4 +137,27 @@ class PlatformThemingService extends tao_models_classes_Service
         
         return new core_kernel_file_File($uri);
     }
+    
+    /**
+     * Store a file located at $filePath.
+     * 
+     * The file will be stored in the data directory with a name corresponding
+     * to the basename infered from $filePath.
+     * 
+     * Example:
+     * 
+     * PlatformThemingService::storeFile('/tmp/myfile.txt') will store
+     * a file 'myfile.txt' in the data directory.
+     * 
+     * @param string $filePath The absolute path to the file to store.
+     */
+    public function storeFile($filePath)
+    {
+        $dir = $this->getDataDirectory();
+        $pathParts = pathinfo($filePath);
+        
+        $dataPath = $dir->getAbsolutePath();
+        $finalPath = rtrim($dataPath, "\\/") . DIRECTORY_SEPARATOR . $pathParts['basename'];
+        file_put_contents($finalPath, file_get_contents($filePath));
+    }
 }

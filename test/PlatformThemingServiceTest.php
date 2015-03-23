@@ -36,6 +36,11 @@ class PlatformThemingServiceTest extends TaoPhpUnitTestRunner
         // Restore previous Theming config...
         $this->service->syncThemingConfig($this->tempConfig);
         
+        // Deal with data storage.
+        $dataDir = $this->service->getDataDirectory();
+        @unlink(rtrim($dataDir->getAbsolutePath(), "/\\") . '/data.txt');
+        @unlink(rtrim(sys_get_temp_dir(), "\\/") . '/tmp-platformthemingtest.txt');
+        
         unset($service);
     }
     
@@ -50,6 +55,10 @@ class PlatformThemingServiceTest extends TaoPhpUnitTestRunner
         
         // Set up all tests with an empty Theming Configuration.
         $this->service->syncThemingConfig(new PlatformThemingConfig());
+        
+        // Deal with data storage.
+        $testFile = rtrim(sys_get_temp_dir(), "\\/") . '/tmp-platformthemingtest.txt';
+        file_put_contents($testFile, 'data');
     }
     
     /**
@@ -81,5 +90,16 @@ class PlatformThemingServiceTest extends TaoPhpUnitTestRunner
         // should be data-source/assets.
         $dataDirectory = $this->service->getDataDirectory();
         $this->assertEquals('assets', $dataDirectory->getRelativePath());
+    }
+    
+    /**
+     * @depends testGetDataDirectory
+     */
+    public function testFileStorage()
+    {
+        $filePath = rtrim(sys_get_temp_dir(), "\\/") . '/tmp-platformthemingtest.txt';
+        $finalPath = rtrim($this->service->getDataDirectory()->getAbsolutePath(), "\\/") . '/tmp-platformthemingtest.txt';
+        $this->service->storeFile($filePath);
+        $this->assertEquals('data', file_get_contents($finalPath));
     }
 }
