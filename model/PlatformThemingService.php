@@ -150,14 +150,21 @@ class PlatformThemingService extends tao_models_classes_Service
      * a file 'myfile.txt' in the data directory.
      * 
      * @param string $filePath The absolute path to the file to store.
+     * @param string $finalName The final name of the file to store if you'd like to change it e.g. 'myfile.png'.
      */
-    public function storeFile($filePath)
+    public function storeFile($filePath, $finalName = '')
     {
         $dir = $this->getDataDirectory();
-        $pathParts = pathinfo($filePath);
-        
         $dataPath = $dir->getAbsolutePath();
-        $finalPath = rtrim($dataPath, "\\/") . DIRECTORY_SEPARATOR . $pathParts['basename'];
+        $pathParts = pathinfo($filePath);
+        $basePath = rtrim($dataPath, "\\/") . DIRECTORY_SEPARATOR;
+       
+        if (empty($finalName) === true) {
+            $finalPath = $basePath . $pathParts['basename'];
+        } else {
+            $finalPath = $basePath . ltrim($finalName, "\\/");
+        }
+        
         file_put_contents($finalPath, file_get_contents($filePath));
     }
 }

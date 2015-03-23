@@ -40,6 +40,7 @@ class PlatformThemingServiceTest extends TaoPhpUnitTestRunner
         $dataDir = $this->service->getDataDirectory();
         @unlink(rtrim($dataDir->getAbsolutePath(), "/\\") . '/data.txt');
         @unlink(rtrim(sys_get_temp_dir(), "\\/") . '/tmp-platformthemingtest.txt');
+        @unlink(rtrim(sys_get_temp_dir(), "\\/") . '/tmp-mynewname.txt');
         
         unset($service);
     }
@@ -100,6 +101,10 @@ class PlatformThemingServiceTest extends TaoPhpUnitTestRunner
         $filePath = rtrim(sys_get_temp_dir(), "\\/") . '/tmp-platformthemingtest.txt';
         $finalPath = rtrim($this->service->getDataDirectory()->getAbsolutePath(), "\\/") . '/tmp-platformthemingtest.txt';
         $this->service->storeFile($filePath);
+        $this->assertEquals('data', file_get_contents($finalPath));
+        
+        $finalPath = rtrim($this->service->getDataDirectory()->getAbsolutePath(), "\\/") . '/tmp-mynewname.txt';
+        $this->service->storeFile($filePath, 'tmp-mynewname.txt');
         $this->assertEquals('data', file_get_contents($finalPath));
     }
 }
