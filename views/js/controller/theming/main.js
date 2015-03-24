@@ -161,8 +161,9 @@ define([
             },
 
             _initializeColorPicker : function($container,input){
+                var color = input.val();
                 var widgetObj = $.farbtastic($container);
-                widgetObj.setColor(input.val());
+                widgetObj.setColor(color);
 
             },
 
