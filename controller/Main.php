@@ -67,7 +67,7 @@ class Main extends tao_actions_CommonModule {
         $this->setData('formTitle', __('Customize Platform'));
         $this->setData('myForm', $myForm->render());
         $this->setData('logo_title', $themingConfig['message']);
-        $this->setData('logo', ($themingConfig['logo'] === null) ? Template::img('tao-logo.png', 'tao') : _url('getFile', 'Main', 'taoThemingPlatform', array('file' => $themingConfig['logo'])));
+        $this->setData('logo', ($themingConfig['logo'] === null) ? Template::img('tao-logo.png', 'tao') : $this->getPlatformService()->getFileUrl($themingConfig['logo']));
         
         $this->setData('header-background', ($themingConfig['header-background'])?:'#fff');
         $this->setData('action-background', ($themingConfig['action-background'])?:'#fff');

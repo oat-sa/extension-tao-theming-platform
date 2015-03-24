@@ -189,4 +189,8 @@ class PlatformThemingService extends tao_models_classes_Service
 
         file_put_contents($finalPath, $css);
     }
+    
+    public function getFileUrl($fileName) {
+        return _url('getFile', 'Main', 'taoThemingPlatform', array('file' => $fileName));
+    }
 }
