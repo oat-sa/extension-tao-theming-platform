@@ -66,26 +66,26 @@ class Main extends tao_actions_CommonModule {
 
         $this->setData('formTitle', __('Customize Platform'));
         $this->setData('myForm', $myForm->render());
-        $this->setData('logo', Template::img('tao-logo.png', 'tao'));
         $this->setData('logo_title', $themingConfig['message']);
         $this->setData('logo_src', $themingConfig['link']);
         $this->setData('header-background', ($themingConfig['header-background'])?:'#fff');
         $this->setData('action-background', ($themingConfig['action-background'])?:'#fff');
         $this->setData('active-background', ($themingConfig['active-background'])?:'#fff');
         $this->setData('inactive-background', ($themingConfig['inactive-background'])?:'#fff');
-        $this->setData('footer-background', ($themingConfig['footer-background'])?:'#fff');
 
         $this->setData('header-color', ($themingConfig['header-color'])?:'#fff');
         $this->setData('action-color', ($themingConfig['action-color'])?:'#fff');
         $this->setData('active-color', ($themingConfig['active-color'])?:'#fff');
         $this->setData('inactive-color', ($themingConfig['inactive-color'])?:'#fff');
-        $this->setData('footer-color', ($themingConfig['footer-color'])?:'#fff');
+        (isset($themingConfig['css-file']))?$this->setData('css-file', array('download'=>true,'file'=>$themingConfig['css-file'])):'';
+        $this->setData('logo', Template::img('tao-logo.png', 'tao'));
         $this->setView('index.tpl');
 
     }
 
     public function getBase64(){
 
+        //TODO Resize the image
         if($this->hasRequestParameter('upload')){
             $filename = $this->getRequestParameter('upload');
             $return['base64'] = 'data:' . FsUtils::getMimeType($filename)  . ';base64,'.base64_encode(file_get_contents($filename));
@@ -104,28 +104,12 @@ class Main extends tao_actions_CommonModule {
 
         $file = \tao_helpers_Http::getUploadedFile('content');;
 
-        $filename = $this->getPlatformService()->storeFile($file);
+        $filename = $this->getPlatformService()->storeFile($file['tmp_name'], $file['name']);
 
         $theme = $this->getPlatformService()->retrieveThemingConfig();
         $theme['css-file'] =  $filename;
         $this->getPlatformService()->syncThemingConfig($theme);
         $this->returnJson(array('success' => __('Style modified')));
-    }
-
-    public function download(){
-        $theme = $this->getPlatformService()->retrieveThemingConfig();
-        $fileuri = $theme['css-file'];
-
-        $file = new \core_kernel_file_File($fileuri);
-
-        if($file->fileExists()){
-            header('Content-disposition: attachment; filename=theme.css');
-            header('Content-type: text/css');
-            echo($file->getFileContent());
-        }
-        else{
-            throw new \tao_models_classes_FileNotFoundException('css theme file');
-        }
     }
 
     public function saveTheme(){
@@ -134,13 +118,37 @@ class Main extends tao_actions_CommonModule {
             throw new \common_exception_IsAjaxAction(__FUNCTION__);
         }
 
-        $data = $this->getRequestParameters();
-        if(isset($data['logo'])){
-            $logo = $data['logo'];
-            $logoFile = $this->getPlatformService()->storeFile($logo);
-            $data['logo'] = $logoFile;
+        $data = array();
+        if($this->hasRequestParameter('logo')){
+            $data = $this->getRequestParameter('logo');
+            if(isset($data['logo'])){
+                $logoFile = $this->getPlatformService()->storeFile($data['fileInfo']['uploaded_file'], $data['fileInfo']['name']);
+                $data['logo'] = $logoFile;
+
+            }
         }
 
+
+        $dataArray = array();
+        if($this->hasRequestParameter('css')){
+            $css = $this->getRequestParameter('css');
+            $formatedArray = array();
+            foreach($css as $key => $array){
+
+                $properties = explode('-',$key, 2);
+                if(isset($properties[1])){
+                    $dataArray[$key] = $array['value'];
+                    $property = $properties[1];
+                    $formatedArray[$array['selector']][$property] = $array['value'];
+                }
+            }
+
+            //TODO make it dynamic
+            $this->getPlatformService()->generateCss($formatedArray, 'depp.css');
+            $data['css-file'] = 'depp.css';
+        }
+
+        $data = array_merge($data, $dataArray);
         $previousConf = $this->getPlatformService()->retrieveThemingConfig();
         $previousArray = $previousConf->getArrayCopy();
         $missingConf = array_diff_key($previousArray, $data);
@@ -149,9 +157,9 @@ class Main extends tao_actions_CommonModule {
 
         $this->getPlatformService()->syncThemingConfig(new PlatformThemingConfig($data));
 
-        $data['success'] = true;
-        $data['message'] = __('Your theme has been saved');
-        $this->returnJson($data);
+        $return['success'] = true;
+        $return['message'] = __('Your theme has been saved');
+        $this->returnJson($return);
 
     }
     
@@ -171,6 +179,9 @@ class Main extends tao_actions_CommonModule {
         }
         
         $mime = tao_helpers_File::getMimeType($finalPath, true);
+        if($this->hasRequestParameter('download')){
+            header('Content-disposition: attachment; filename=theme.css');
+        }
         header('Content-Type: ' . $mime);
         echo file_get_contents($finalPath);
     }
