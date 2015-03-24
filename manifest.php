@@ -33,6 +33,7 @@ return array(
 	'managementRole' => 'http://www.tao.lu/Ontologies/generis.rdf#taoThemingPlatformManager',
     'acl' => array(
         array('grant', 'http://www.tao.lu/Ontologies/generis.rdf#taoThemingPlatformManager', array('ext'=>'taoThemingPlatform')),
+        array('grant', 'http://www.tao.lu/Ontologies/generis.rdf#AnonymousRole', array('ext'=>'taoThemingPlatform','mod' => 'Main', 'act' => 'getFile')),
     ),
     'local'	=> array(
         'php'	=> array(
