@@ -67,7 +67,8 @@ class Main extends tao_actions_CommonModule {
         $this->setData('formTitle', __('Customize Platform'));
         $this->setData('myForm', $myForm->render());
         $this->setData('logo_title', $themingConfig['message']);
-        $this->setData('logo_src', $themingConfig['link']);
+        $this->setData('logo', ($themingConfig['logo'] === null) ? Template::img('tao-logo.png', 'tao') : _url('getFile', 'Main', 'taoThemingPlatform', array('file' => $themingConfig['logo'])));
+        
         $this->setData('header-background', ($themingConfig['header-background'])?:'#fff');
         $this->setData('action-background', ($themingConfig['action-background'])?:'#fff');
         $this->setData('active-background', ($themingConfig['active-background'])?:'#fff');
@@ -78,7 +79,7 @@ class Main extends tao_actions_CommonModule {
         $this->setData('active-color', ($themingConfig['active-color'])?:'#fff');
         $this->setData('inactive-color', ($themingConfig['inactive-color'])?:'#fff');
         (isset($themingConfig['css-file']))?$this->setData('css-file', array('download'=>true,'file'=>$themingConfig['css-file'])):'';
-        $this->setData('logo', Template::img('tao-logo.png', 'tao'));
+        
         $this->setView('index.tpl');
 
     }
@@ -122,7 +123,7 @@ class Main extends tao_actions_CommonModule {
         if($this->hasRequestParameter('logo')){
             $data = $this->getRequestParameter('logo');
             if(isset($data['logo'])){
-                $logoFile = $this->getPlatformService()->storeFile($data['fileInfo']['uploaded_file'], $data['fileInfo']['name']);
+                $logoFile = $this->getPlatformService()->storeFile($data['logo']['uploaded_file'], $data['logo']['name']);
                 $data['logo'] = $logoFile;
 
             }
@@ -153,7 +154,7 @@ class Main extends tao_actions_CommonModule {
         $previousArray = $previousConf->getArrayCopy();
         $missingConf = array_diff_key($previousArray, $data);
         $data = array_merge($data, $missingConf);
-
+        error_log(var_export($data, true));
 
         $this->getPlatformService()->syncThemingConfig(new PlatformThemingConfig($data));
 
