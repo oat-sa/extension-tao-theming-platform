@@ -23,7 +23,7 @@
                 </nav>
                 <span class="part-description"><?=('Header and Footer')?></span>
             </header>
-            <ul class="plain action-bar content-action-bar horizontal-action-bar customizer-trigger" data-calculus=".action-bar.horizontal-action-bar li.btn-info:hover, .action-bar.horizontal-action-bar li.btn-info.active" data-local=".platform-theme-selector .content-action-bar, .platform-theme-selector .action-bar li.active .li-inner" data-target=".action-bar, .section-container .tab-container li.active, .section-container .tab-container li:hover" data-popup=".platform-theme-selector .customizer-action-bar-colorpicker">
+            <ul class="plain action-bar content-action-bar horizontal-action-bar customizer-trigger" data-important="true" data-calculus=".action-bar.horizontal-action-bar li.btn-info:hover, .action-bar.horizontal-action-bar li.btn-info.active" data-local=".platform-theme-selector .content-action-bar, .platform-theme-selector .action-bar li.active .li-inner" data-target=".action-bar, .section-container .tab-container li.active, .section-container .tab-container li:hover" data-popup=".platform-theme-selector .customizer-action-bar-colorpicker">
                 <li class="action btn-info small active">
                     <a class="li-inner" href="#">
                         <span class="icon-edit glyph"></span> Button </a>

@@ -151,6 +151,7 @@ define([
                                 self._updatePreview($(this), color, type, cssObject);
                             });
                             $input.val(color);
+                            color = ($elt.data('important'))?color+' !important':color;
 
                             var name = $input.attr('name');
                             cssObject[name] = {selector:target, value:color};
