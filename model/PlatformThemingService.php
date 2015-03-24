@@ -172,6 +172,19 @@ class PlatformThemingService extends tao_models_classes_Service
 
         return basename($finalPath);
     }
+    
+    /**
+     * Whether or not a give $fileName exists in the data directory.
+     * 
+     * @param string $fileName
+     */
+    public function hasFile($fileName) {
+        $dir = $this->getDataDirectory();
+        $dataPath = $dir->getAbsolutePath();
+        $path = rtrim($dataPath, "\\/") . DIRECTORY_SEPARATOR . trim($fileName, "\\/");
+        
+        return @is_file($path);
+    }
 
 
     /**

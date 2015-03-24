@@ -145,8 +145,8 @@ class Main extends tao_actions_CommonModule {
             }
 
             //TODO make it dynamic
-            $this->getPlatformService()->generateCss($formatedArray, 'depp.css');
-            $data['css-file'] = 'depp.css';
+            $this->getPlatformService()->generateCss($formatedArray, 'platformtheme.css');
+            $data['css-file'] = 'platformtheme.css';
         }
 
         $data = array_merge($data, $dataArray);
@@ -154,7 +154,6 @@ class Main extends tao_actions_CommonModule {
         $previousArray = $previousConf->getArrayCopy();
         $missingConf = array_diff_key($previousArray, $data);
         $data = array_merge($data, $missingConf);
-        error_log(var_export($data, true));
 
         $this->getPlatformService()->syncThemingConfig(new PlatformThemingConfig($data));
 
