@@ -20,6 +20,7 @@
 
 namespace oat\taoThemingPlatform\model;
 
+use oat\tao\helpers\CssHandler;
 use \tao_models_classes_Service;
 use \core_kernel_file_File;
 use \common_ext_ExtensionsManager;
@@ -151,6 +152,8 @@ class PlatformThemingService extends tao_models_classes_Service
      * 
      * @param string $filePath The absolute path to the file to store.
      * @param string $finalName The final name of the file to store if you'd like to change it e.g. 'myfile.png'.
+     *
+     * @return string $filename
      */
     public function storeFile($filePath, $finalName = '')
     {
@@ -166,5 +169,24 @@ class PlatformThemingService extends tao_models_classes_Service
         }
         
         file_put_contents($finalPath, file_get_contents($filePath));
+
+        return basename($finalPath);
+    }
+
+
+    public function generateCss($cssArray, $filename)
+    {
+
+        $css = "/* === These styles are generated, do not edit! === */ \n";
+        $css .= CssHandler::arrayToCss($cssArray, false);
+        $css .= "\n/* === Add your own styles below this line === */\n";
+
+        $dir = $this->getDataDirectory();
+        $dataPath = $dir->getAbsolutePath();
+        $basePath = rtrim($dataPath, "\\/") . DIRECTORY_SEPARATOR;
+
+        $finalPath = $basePath . $filename;
+
+        file_put_contents($finalPath, $css);
     }
 }
