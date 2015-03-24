@@ -20,22 +20,8 @@ define([
                 self._initUploader();
                 self._initPopups($triggers,$popups, cssObject);
 
-                $('.save').on('click',function(){
-                    $.ajax({
-                        url: helpers._url('saveTheme', 'Main', 'taoThemingPlatform'),
-                        method: "POST",
-                        data: {css:cssObject, logo:logoObject},
-                        dataType: "json"
-                    }).done(function(response){
-                        if(response && response.success){
-                            feedback().success(response.message);
-                            $popups.not('[style="display: none;"]').hide();
-                        }
-                        else{
-                            feedback().error(response.message);
-                        }
-                    });
-
+                $('.save').off('click').on('click',function(){
+                    self._initConfirmBox($popups, cssObject, logoObject);
                 });
 
 
@@ -85,6 +71,41 @@ define([
 
                     });
                 });
+
+            },
+
+            _initConfirmBox : function($popups, cssObject, logoObject){
+                // prompt a confirmation lightbox and then delete the result
+                var confirmBox = $('.confirm-modal-feedback'),
+                    cancel = confirmBox.find('.cancel'),
+                    save = confirmBox.find('.save'),
+                    close = confirmBox.find('.modal-close');
+
+                confirmBox.modal({ width: 500 });
+
+                save.off('click')
+                    .on('click', function () {
+                        $.ajax({
+                            url: helpers._url('saveTheme', 'Main', 'taoThemingPlatform'),
+                            method: "POST",
+                            data: {css:cssObject, logo:logoObject},
+                            dataType: "json"
+                        }).done(function(response){
+                            if(response && response.success){
+                                feedback().success(response.message);
+                                $popups.not('[style="display: none;"]').hide();
+                            }
+                            else{
+                                feedback().error(response.message);
+                            }
+                        });
+                        confirmBox.modal('close');
+                    });
+
+                cancel.off('click')
+                    .on('click', function () {
+                        confirmBox.modal('close');
+                    });
 
             },
 

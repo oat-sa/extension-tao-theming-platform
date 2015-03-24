@@ -96,3 +96,14 @@
         </div>
     </div>
 </div>
+
+<div class="confirm-modal-feedback modal">
+    <div class="modal-body clearfix">
+        <p><?= __('This will override your previous theme') ?></p>
+
+        <div class="rgt">
+            <button class="btn-regular small cancel" type="button"><?= __('Cancel') ?></button>
+            <button class="btn-info small save" type="button"><?= __('Save') ?></button>
+        </div>
+    </div>
+</div>
