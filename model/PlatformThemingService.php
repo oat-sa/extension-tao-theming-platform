@@ -174,20 +174,22 @@ class PlatformThemingService extends tao_models_classes_Service
     }
 
 
+    /**
+     * @param $cssArray array that contains selectors, property and value
+     * ['.myselector1' => ['property1'=>'value', 'property2'=>'value2']]
+     * @param $filename string the name of the css file
+     */
     public function generateCss($cssArray, $filename)
     {
-
+        $tmpDir = \tao_helpers_File::createTempDir();
         $css = "/* === These styles are generated, do not edit! === */ \n";
         $css .= CssHandler::arrayToCss($cssArray, false);
         $css .= "\n/* === Add your own styles below this line === */\n";
+        $tmpFile = $tmpDir.'/theme.css';
+        file_put_contents($tmpFile, $css);
 
-        $dir = $this->getDataDirectory();
-        $dataPath = $dir->getAbsolutePath();
-        $basePath = rtrim($dataPath, "\\/") . DIRECTORY_SEPARATOR;
+        $this->storeFile($tmpFile, $filename);
 
-        $finalPath = $basePath . $filename;
-
-        file_put_contents($finalPath, $css);
     }
     
     public function getFileUrl($fileName) {
