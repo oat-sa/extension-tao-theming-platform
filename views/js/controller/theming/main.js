@@ -191,7 +191,22 @@ define([
 
             _updatePreview : function($container,color,type, cssObject){
 
-                $container.css(type, color);
+                var oldStyle = $container.attr('style');
+                var newStyle = oldStyle;
+                if(typeof oldStyle === 'undefined'){
+                    newStyle = type+':'+color+' !important';
+                }
+                else if(oldStyle.indexOf(type) === -1){
+                    newStyle = oldStyle + ' ' + type+':'+color+' !important';
+                }
+                else{
+                    var patt = new RegExp(type+':[^;]+');
+                    var res = patt.exec(oldStyle);
+                    newStyle = oldStyle.replace(res, type+':'+color+' !important;');
+                }
+
+                $container.attr('style', newStyle);
+
                 if(type === 'color' && $container.hasClass('action-bar')){
                     var calculatedColor = $container.css(type).replace('rgb', 'rgba').replace(')', ',.3)');
                     $container.find('.btn-info').css('border-color', calculatedColor);

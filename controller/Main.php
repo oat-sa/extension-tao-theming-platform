@@ -105,7 +105,7 @@ class Main extends tao_actions_CommonModule {
 
         $file = \tao_helpers_Http::getUploadedFile('content');;
 
-        $filename = $this->getPlatformService()->storeFile($file['tmp_name'], $file['name']);
+        $filename = $this->getPlatformService()->storeFile($file['tmp_name'], 'platformtheme.css');
 
         $theme = $this->getPlatformService()->retrieveThemingConfig();
         $theme['css-file'] =  $filename;
@@ -138,13 +138,18 @@ class Main extends tao_actions_CommonModule {
 
                 $properties = explode('-',$key, 2);
                 if(isset($properties[1])){
-                    $dataArray[$key] = $array['value'];
+                    $value = $array['value'];
+                    $pos = strpos($value, ' !important');
+                    if($pos !== false){
+                        $value = substr($value, 0, $pos);
+                    }
+
+                    $dataArray[$key] = $value;
                     $property = $properties[1];
                     $formatedArray[$array['selector']][$property] = $array['value'];
                 }
             }
 
-            //TODO make it dynamic
             $this->getPlatformService()->generateCss($formatedArray, 'platformtheme.css');
             $data['css-file'] = 'platformtheme.css';
         }
