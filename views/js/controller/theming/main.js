@@ -1,7 +1,7 @@
 define([
     'jquery',
     'helpers',
-    'taoQtiItem/qtiCreator/editor/styleEditor/farbtastic/farbtastic',
+    'lib/farbtastic/farbtastic',
     'ui/feedback',
     'ui/uploader'
 ],
