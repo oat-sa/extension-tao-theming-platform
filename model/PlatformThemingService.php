@@ -20,7 +20,11 @@
 
 namespace oat\taoThemingPlatform\model;
 
+use oat\tao\helpers\CssHandler;
 use \tao_models_classes_Service;
+use \core_kernel_file_File;
+use \common_ext_ExtensionsManager;
+use \common_Exception;
 
 /**
  * The main Service of the Extension.
@@ -29,8 +33,179 @@ use \tao_models_classes_Service;
  * @author Dieter Raber <dieter@taotesting.com>
  * @author Antoine Robin <antoine.robin@vesperiagroup.com>
  */
-class Service extends tao_models_classes_Service
+class PlatformThemingService extends tao_models_classes_Service
 {
+    /**
+     * Configuration key for data e.g. images, other assets, ... storage.
+     * 
+     * @var string
+     */
+    const CONFIG_KEY_DATA = 'themingPlatformData';
     
-}
+    /**
+     * Configuration key for theming configuration.
+     * 
+     * @var string
+     */
+    const CONFIG_KEY_CONF = 'themingPlatformConf';
+    
+    /**
+     * A PlatformThemingConfig cache property.
+     * 
+     * If the Theming Configuration is retrieved multiple time,
+     * the value held in this property will be returned.
+     * 
+     * If the Theming Configuration is synchronized, the value
+     * of this property is updated with the newly synchronized
+     * ThemingConfiguration object.
+     * 
+     * @var \oat\taoThemingPlatform\model\PlatformThemingConfig
+     */
+    private $themingConfigMemCache = null;
+    
+    /**
+     * Retrieve the Theming Configuration.
+     * 
+     * The return PlatformThemingConfig object will be set up
+     * with the configuration data from /data/taoThemingPlatform/assets.
+     * 
+     * @return \oat\taoThemingPlatform\model\PlatformThemingConfig
+     */
+    public function retrieveThemingConfig()
+    {
+        if (is_null($this->themingConfigMemCache) === false) {
+            
+            return $this->themingConfigMemCache;
+        } else {
+            $ext = common_ext_ExtensionsManager::singleton()->getExtensionById('taoThemingPlatform');
+            $jsonConfig = $ext->getConfig(self::CONFIG_KEY_CONF);
+            
+            $arrayConfig = array();
+            if (empty($jsonConfig) === false) {
+                $arrayConfig = json_decode($jsonConfig, true);
+            }
+            
+            $themingConfig = new PlatformThemingConfig($arrayConfig);
+            $this->themingConfigMemCache = $themingConfig;
+            
+            return clone $themingConfig;
+        }
+    }
+    
+    /**
+     * Synchronize the Theming Configuration.
+     * 
+     * The configuration represented by the given PlatformThemingConfig
+     * object will be serialized and stored in /data/taoThemingPlatform/assets.
+     * 
+     * @param \oat\taoThemingPlatform\model\PlatformThemingConfig $config
+     */
+    public function syncThemingConfig(PlatformThemingConfig $config)
+    {
+        $ext = common_ext_ExtensionsManager::singleton()->getExtensionById('taoThemingPlatform');
+        $ext->setConfig(self::CONFIG_KEY_CONF, json_encode($config->getArrayCopy()));
+        $this->themingConfigMemCache = $config;
+    }
+    
+    /**
+     * Set the data storage directory.
+     * 
+     * @param core_kernel_file_File $directory
+     */
+    public function setDataDirectory(core_kernel_file_File $directory)
+    {
+        $ext = common_ext_ExtensionsManager::singleton()->getExtensionById('taoThemingPlatform');
+        $ext->setConfig(self::CONFIG_KEY_DATA, $directory->getUri());
+    }
+    
+    /**
+     * Get a reference on the data storage directory.
+     * 
+     * You can call core_kernel_file_File::getAbsolutePath() and/or core_kernel_file_File::getRelativePath()
+     * on the return object to know where to store data assets.
+     * 
+     * @return core_kernel_file_File
+     * @throws common_exception If no default data storage directory is configured.
+     */
+    public function getDataDirectory()
+    {
+        $ext = common_ext_ExtensionsManager::singleton()->getExtensionById('taoThemingPlatform');
+        $uri = $ext->getConfig(self::CONFIG_KEY_DATA);
+        
+        if (empty($uri)) {
+            throw new common_Exception('No datasource defined for taoThemingPlatform data storage.');
+        }
+        
+        return new core_kernel_file_File($uri);
+    }
+    
+    /**
+     * Store a file located at $filePath.
+     * 
+     * The file will be stored in the data directory with a name corresponding
+     * to the basename infered from $filePath.
+     * 
+     * Example:
+     * 
+     * PlatformThemingService::storeFile('/tmp/myfile.txt') will store
+     * a file 'myfile.txt' in the data directory.
+     * 
+     * @param string $filePath The absolute path to the file to store.
+     * @param string $finalName The final name of the file to store if you'd like to change it e.g. 'myfile.png'.
+     *
+     * @return string $filename
+     */
+    public function storeFile($filePath, $finalName = '')
+    {
+        $dir = $this->getDataDirectory();
+        $dataPath = $dir->getAbsolutePath();
+        $pathParts = pathinfo($filePath);
+        $basePath = rtrim($dataPath, "\\/") . DIRECTORY_SEPARATOR;
+       
+        if (empty($finalName) === true) {
+            $finalPath = $basePath . $pathParts['basename'];
+        } else {
+            $finalPath = $basePath . ltrim($finalName, "\\/");
+        }
+        
+        file_put_contents($finalPath, file_get_contents($filePath));
 
+        return basename($finalPath);
+    }
+    
+    /**
+     * Whether or not a give $fileName exists in the data directory.
+     * 
+     * @param string $fileName
+     */
+    public function hasFile($fileName) {
+        $dir = $this->getDataDirectory();
+        $dataPath = $dir->getAbsolutePath();
+        $path = rtrim($dataPath, "\\/") . DIRECTORY_SEPARATOR . trim($fileName, "\\/");
+        
+        return @is_file($path);
+    }
+
+
+    /**
+     * @param $cssArray array that contains selectors, property and value
+     * ['.myselector1' => ['property1'=>'value', 'property2'=>'value2']]
+     * @param $filename string the name of the css file
+     */
+    public function generateCss($cssArray, $filename)
+    {
+        $tmpDir = \tao_helpers_File::createTempDir();
+        $css = "/* === These styles are generated, do not edit! === */ \n";
+        $css .= CssHandler::arrayToCss($cssArray, false);
+        $css .= "\n/* === Add your own styles below this line === */\n";
+        $tmpFile = $tmpDir.'/theme.css';
+        file_put_contents($tmpFile, $css);
+
+        $this->storeFile($tmpFile, $filename);
+
+    }
+    
+    public function getFileUrl($fileName) {
+        return _url('getFile', 'Main', 'taoThemingPlatform', array('file' => $fileName));
+    }
+}
