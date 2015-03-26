@@ -80,6 +80,11 @@ class Main extends tao_actions_CommonModule {
         $this->setData('inactive-color', ($themingConfig['inactive-color'])?:'#fff');
         (isset($themingConfig['css-file']))?$this->setData('css-file', array('download'=>true,'file'=>$themingConfig['css-file'])):'';
         
+        $this->setData('stable', $themingConfig['stable']);
+        $this->setData('login_msg', $themingConfig['login_message']);
+        $this->setData('login_field', $themingConfig['login_field']);
+        $this->setData('password_field', $themingConfig['password_field']);
+        
         $this->setView('index.tpl');
 
     }
@@ -159,8 +164,12 @@ class Main extends tao_actions_CommonModule {
         $previousArray = $previousConf->getArrayCopy();
         $missingConf = array_diff_key($previousArray, $data);
         $data = array_merge($data, $missingConf);
-
-        $this->getPlatformService()->syncThemingConfig(new PlatformThemingConfig($data));
+        $newConfig = new PlatformThemingConfig($data);
+        $newConfig['login_message'] = $this->getRequestParameter('login_msg');
+        $newConfig['login_field'] = $this->getRequestParameter('login_field');
+        $newConfig['password_field'] = $this->getRequestParameter('password_field');
+        $newConfig['stable'] = ($this->getRequestParameter('stable') == 'true') ? true : false;
+        $this->getPlatformService()->syncThemingConfig($newConfig);
 
         $return['success'] = true;
         $return['message'] = __('Your theme has been saved');
