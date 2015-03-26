@@ -3,7 +3,7 @@
 <div class="main-container flex-container-main-form platform-theme-selector">
     <h1><?= get_data('formTitle');?></h1>
     <div>
-        <h3>Select the part you want to edit</h3>
+        <h3><?= __('Click on the elements below to change the appearance of the platform.')?></h3>
         <div class="customizer-selection-area">
             <header class="dark-bar clearfix customizer-trigger" data-local=".platform-theme-selector header, .platform-theme-selector footer" data-target=".dark-bar" data-popup=".platform-theme-selector .customizer-header-colorpicker">
                 <a href="<?=get_data('logo_src')?>" title="<?=get_data('logo_title')?>" class="lft customizer-trigger" data-popup=".platform-theme-selector .logo-upload-form" target="_blank">
@@ -65,6 +65,25 @@
                     <p><?=__('Text Color')?></p>
                     <input type="hidden" value="<?=get_data('action-color')?>" name="action-color">
                 </div>
+            </div>
+        </div>
+        <h3>Miscellaneous</h3>
+        <div>
+            <div>
+                <label>
+                    <?= __('Stable status') ?>
+                    <input type="checkbox" id="is-platform-stable" <?= (get_data('stable') === true) ? 'checked="checked"' : '' ?>/>
+                    <span class="icon-checkbox"></span>    
+                </label>
+            </div>
+            <div>
+                <label for="platform-login-message"><?= __('Login message') ?>:</label><input type="text" id="platform-login-message" style="width:300px;" value="<?= get_data('login_msg') ?>"/>
+            </div>
+            <div>
+                <label for="platform-login-label"><?= __('Login field') ?>:</label><input type="text" id="platform-login-label" style="width:300px;" value="<?= get_data('login_field') ?>"/>
+            </div>
+            <div>
+                <label for="platform-password-label"><?= __('password field') ?>:</label><input type="text" id="platform-password-label" style="width:300px;" value="<?= get_data('password_field') ?>"/>
             </div>
         </div>
         <div class="button-bar">

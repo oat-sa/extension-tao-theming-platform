@@ -85,11 +85,17 @@ define([
 
                 save.off('click')
                     .on('click', function () {
+                        var isStable = $('#is-platform-stable').is(':checked');
+                        var loginMessage = $('#platform-login-message').val();
+                        var loginField = $('#platform-login-label').val();
+                        var passwordField = $('#platform-password-label').val();
+                        
                         $.ajax({
-                            url: helpers._url('saveTheme', 'Main', 'taoThemingPlatform'),
+                            url: helpers._url('saveTheme', 'Main', 'taoThemingPlatform') + '/',
+                            contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
                             method: "POST",
-                            data: {css:cssObject, logo:logoObject},
-                            dataType: "json"
+                            data: {"css":cssObject, "logo":logoObject, "stable": isStable, "login_msg": loginMessage, "login_field": loginField, "password_field": passwordField},
+                            dataType: 'json'
                         }).done(function(response){
                             if(response && response.success){
                                 feedback().success(response.message);
