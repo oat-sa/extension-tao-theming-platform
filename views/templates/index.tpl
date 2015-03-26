@@ -83,7 +83,7 @@
                 <label for="platform-login-label"><?= __('Login field') ?>:</label><input type="text" id="platform-login-label" style="width:300px;" value="<?= get_data('login_field') ?>"/>
             </div>
             <div>
-                <label for="platform-password-label"><?= __('password field') ?>:</label><input type="text" id="platform-password-label" style="width:300px;" value="<?= get_data('password_field') ?>"/>
+                <label for="platform-password-label"><?= __('Password field') ?>:</label><input type="text" id="platform-password-label" style="width:300px;" value="<?= get_data('password_field') ?>"/>
             </div>
         </div>
         <div class="button-bar">
