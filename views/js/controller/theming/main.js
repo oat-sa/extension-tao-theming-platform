@@ -89,12 +89,13 @@ define([
                         var loginMessage = $('#platform-login-message').val();
                         var loginField = $('#platform-login-label').val();
                         var passwordField = $('#platform-password-label').val();
+                        var copyrightNotice = $('#platform-copyright-notice').val();
                         
                         $.ajax({
                             url: helpers._url('saveTheme', 'Main', 'taoThemingPlatform') + '/',
                             contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
                             method: "POST",
-                            data: {"css":cssObject, "logo":logoObject, "stable": isStable, "login_msg": loginMessage, "login_field": loginField, "password_field": passwordField},
+                            data: {"css":cssObject, "logo":logoObject, "stable": isStable, "login_msg": loginMessage, "login_field": loginField, "password_field": passwordField, "copyright_notice": copyrightNotice},
                             dataType: 'json'
                         }).done(function(response){
                             if(response && response.success){

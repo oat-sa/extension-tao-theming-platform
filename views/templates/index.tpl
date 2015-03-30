@@ -85,6 +85,9 @@
             <div>
                 <label for="platform-password-label"><?= __('Password field') ?>:</label><input type="text" id="platform-password-label" style="width:300px;" value="<?= get_data('password_field') ?>"/>
             </div>
+            <div>
+                <label for="platform-password-label"><?= __('Copyright notice') ?>:</label><input type="text" id="platform-copyright-notice" style="width:300px;" value="<?= get_data('copyright_notice') ?>"/>
+            </div>
         </div>
         <div class="button-bar">
             <button class="btn-info small rgt save" type="button"><span class="icon-save"></span><?=__('Save')?></button>
