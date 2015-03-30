@@ -84,6 +84,7 @@ class Main extends tao_actions_CommonModule {
         $this->setData('login_msg', $themingConfig['login_message']);
         $this->setData('login_field', $themingConfig['login_field']);
         $this->setData('password_field', $themingConfig['password_field']);
+        $this->setData('copyright_notice', $themingConfig['copyright_notice']);
         
         $this->setView('index.tpl');
 
@@ -168,6 +169,7 @@ class Main extends tao_actions_CommonModule {
         $newConfig['login_message'] = $this->getRequestParameter('login_msg');
         $newConfig['login_field'] = $this->getRequestParameter('login_field');
         $newConfig['password_field'] = $this->getRequestParameter('password_field');
+        $newConfig['copyright_notice'] = $this->getRequestParameter('copyright_notice');
         $newConfig['stable'] = ($this->getRequestParameter('stable') == 'true') ? true : false;
         $this->getPlatformService()->syncThemingConfig($newConfig);
 
