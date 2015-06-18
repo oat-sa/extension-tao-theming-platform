@@ -23,7 +23,7 @@ return array(
 	'label' => 'Platform Theming',
 	'description' => '',
     'license' => 'GPL-2.0',
-    'version' => '0.0.0',
+    'version' => '0.0.2',
 	'author' => 'Open Assessment Technologies SA',
 	'requires' => array(
         'taoDataUri' => '>=0.0.0'
@@ -42,11 +42,7 @@ return array(
     ),
     'uninstall' => array(
     ),
-    'autoload' => array (
-        'psr-4' => array(
-            'oat\\taoThemingPlatform\\' => dirname(__FILE__).DIRECTORY_SEPARATOR
-        )
-    ),
+    'update' => 'oat\\taoThemingPlatform\\scripts\\update\\Updater',
     'routes' => array(
         '/taoThemingPlatform' => 'oat\\taoThemingPlatform\\controller'
     ),    
