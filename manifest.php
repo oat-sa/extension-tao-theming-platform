@@ -23,7 +23,7 @@ return array(
 	'label' => 'Platform Theming',
 	'description' => '',
     'license' => 'GPL-2.0',
-    'version' => '0.0.0',
+    'version' => '0.0.1',
 	'author' => 'Open Assessment Technologies SA',
 	'requires' => array(
         'taoDataUri' => '>=0.0.0'
