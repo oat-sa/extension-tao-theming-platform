@@ -2,6 +2,25 @@
 <link rel="stylesheet" href="<?= Template::css('platform-customizer.css') ?>"/>
 <div class="main-container flex-container-main-form platform-theme-selector">
     <h1><?= get_data('formTitle');?></h1>
+
+
+    <div class="stylesheet-upload">
+        <style>
+            .stylesheet-upload .form-content {
+                width: auto !important;
+            }
+            .stylesheet-upload .action-bar {
+                margin: 0;
+            }
+        </style>
+        <div class="form-content">
+            <p class="action-bar"><?=__('Upload your custom CSS')?> </p>
+            <div id="upload-stylesheet" data-url="<?=_url('upload', 'Main');?>"></div>
+        </div>
+    </div>
+
+
+    <!-- disabled temporarily
     <div>
         <h3><?= __('Click on the elements below to change the appearance of the platform.')?></h3>
         <div class="customizer-selection-area">
@@ -117,6 +136,7 @@
             </div>
         </div>
     </div>
+    / disabled temporarily -->
 </div>
 
 <div class="confirm-modal-feedback modal">
