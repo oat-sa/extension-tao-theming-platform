@@ -35,8 +35,8 @@ class Updater extends \common_ext_ExtensionUpdater {
         
         $currentVersion = $initialVersion;
         
-        if ($currentVersion == '0.0.0') {
-        	$currentVersion = '0.0.2';
+        if ($currentVersion == '0.0.0' || $currentVersion == '0.0.1' || $currentVersion == '0.0.2') {
+        	$currentVersion = '0.1';
         }
         return $currentVersion;
     }
