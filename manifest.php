@@ -26,16 +26,14 @@ return array(
     'version' => '0.1',
 	'author' => 'Open Assessment Technologies SA',
 	'requires' => array(
-        'taoDataUri' => '>=0.0.0'
+        'tao' => '>=2.7'
     ),
-	// for compatibility
-	'dependencies' => array('tao'),
 	'managementRole' => 'http://www.tao.lu/Ontologies/generis.rdf#taoThemingPlatformManager',
     'acl' => array(
         array('grant', 'http://www.tao.lu/Ontologies/generis.rdf#taoThemingPlatformManager', array('ext'=>'taoThemingPlatform')),
         array('grant', 'http://www.tao.lu/Ontologies/generis.rdf#AnonymousRole', array('ext'=>'taoThemingPlatform','mod' => 'Main', 'act' => 'getFile')),
     ),
-    'local'	=> array(
+    'install'	=> array(
         'php'	=> array(
             dirname(__FILE__).'/scripts/install/createDatasource.php',
         )
