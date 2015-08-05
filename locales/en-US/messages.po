@@ -1,0 +1,102 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: TAO 3.1.0-sprint04\n"
+"PO-Revision-Date: 2015-08-05T09:13:43\n"
+"Last-Translator: TAO Translation Team <translation@tao.lu>\n"
+"MIME-Version: 1.0\n"
+"Language: en-US\n"
+"sourceLanguage: en-US\n"
+"targetLanguage: en-US\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Basepath: ../../\n"
+"X-Poedit-KeywordsList: __\n"
+"X-Poedit-SearchPath-0: .\n"
+
+msgid "Action bar"
+msgstr ""
+
+msgid "Active tab"
+msgstr ""
+
+msgid "Alternative text of the logo"
+msgstr ""
+
+msgid "Background Color"
+msgstr ""
+
+msgid "Background color"
+msgstr ""
+
+msgid "Cancel"
+msgstr ""
+
+msgid "Click on the elements below to change the appearance of the platform."
+msgstr ""
+
+msgid "Copyright notice"
+msgstr ""
+
+msgid "Customize Platform"
+msgstr ""
+
+msgid "Download CSS"
+msgstr ""
+
+msgid "Header and Footer"
+msgstr ""
+
+#, tao-public
+msgid "Layout"
+msgstr ""
+
+msgid "Link on logo click"
+msgstr ""
+
+msgid "Login field"
+msgstr ""
+
+msgid "Login message"
+msgstr ""
+
+msgid "Logo"
+msgstr ""
+
+msgid "Password field"
+msgstr ""
+
+#, tao-public
+msgid "Platform Theming"
+msgstr ""
+
+msgid "Save"
+msgstr ""
+
+msgid "Stable status"
+msgstr ""
+
+msgid "Style modified"
+msgstr ""
+
+msgid "Text Color"
+msgstr ""
+
+msgid "This will override your previous theme"
+msgstr ""
+
+#, tao-public
+msgid "Tools"
+msgstr ""
+
+msgid "Upload CSS"
+msgstr ""
+
+msgid "Upload your custom CSS"
+msgstr ""
+
+msgid "Upload your logo"
+msgstr ""
+
+msgid "Your theme has been saved"
+msgstr ""
+
