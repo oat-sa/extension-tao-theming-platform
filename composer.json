@@ -21,7 +21,7 @@
     "minimum-stability" : "dev",
     "require": {
         "oat-sa/oatbox-extension-installer": "dev-master",
-        "oat-sa/extension-tao-datauri": "dev-develop"
+        "oat-sa/extension-tao-datauri": "~0.0.4"
     },
     "autoload" : {
         "psr-4" : {
