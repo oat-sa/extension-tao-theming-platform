@@ -32,14 +32,16 @@ class Updater extends \common_ext_ExtensionUpdater {
      * @return string $versionUpdatedTo
      */
     public function update($initialVersion) {
-        
-         if ( $this->isVersion('0.0.0') 
-         || $this->isVersion('0.0.1') 
-         || $this->isVersion('0.0.2') 
-         || $this->isVersion('0.1') )
+
+         if ( $this->isVersion('0.0.0')
+         || $this->isVersion('0.0.1')
+         || $this->isVersion('0.0.2')
+         || $this->isVersion('0.1')
+         || $this->isVersion('0.1.1') )
          {
-            $this->setVersion('0.1.1');
+            $this->setVersion('0.1.2');
          }
+
         return null;
     }
 }
