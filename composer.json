@@ -21,11 +21,11 @@
     "minimum-stability" : "dev",
     "require": {
         "oat-sa/oatbox-extension-installer": "dev-master",
-        "oat-sa/extension-tao-datauri": "~0.0.4"
+        "oat-sa/extension-tao-datauri": "~1.0.0"
     },
     "autoload" : {
         "psr-4" : {
             "oat\\taoThemingPlatform\\" : ""
         }
-    } 
+    }
 }
