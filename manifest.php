@@ -23,10 +23,10 @@ return array(
 	'label' => 'Platform Theming',
 	'description' => '',
     'license' => 'GPL-2.0',
-    'version' => '0.2.0',
+    'version' => '1.0.0',
 	'author' => 'Open Assessment Technologies SA',
 	'requires' => array(
-        'tao' => '>=2.7'
+        'tao' => '>=9.0'
     ),
 	'managementRole' => 'http://www.tao.lu/Ontologies/generis.rdf#taoThemingPlatformManager',
     'acl' => array(
@@ -50,9 +50,6 @@ return array(
 	    
 		#BASE URL (usually the domain root)
 		'BASE_URL' => ROOT_URL.'taoThemingPlatform/',
-	    
-	    #BASE WWW required by JS
-	    'BASE_WWW' => ROOT_URL.'taoThemingPlatform/views/'
 	),
     'extra' => array(
         'structures' => dirname(__FILE__).DIRECTORY_SEPARATOR.'controller'.DIRECTORY_SEPARATOR.'structures.xml',
