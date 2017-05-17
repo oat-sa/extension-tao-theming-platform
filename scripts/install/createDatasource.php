@@ -18,26 +18,6 @@
  *               
  */
 
-/*
- * This post-installation script creates a data storage directory
- * for the taoThemingPlatform extension.
- */
-/*$dataPath = FILES_PATH . 'taoThemingPlatform' . DIRECTORY_SEPARATOR;
-if (file_exists($dataPath)) {
-    helpers_File::emptyDirectory($dataPath);
-}
-
-// Create extension datasource.
-$source = tao_models_classes_FileSourceService::singleton()->addLocalSource('Platform Theming datasource', $dataPath);
-
-// Create the assets directory which will contain theming assets.
-mkdir($dataPath.'assets');
-$directory = new core_kernel_file_File($source->createFile('', 'assets'));
-
-// Assets storage is now set to '/data/taoThemingPlatform/assets'.
-PlatformThemingService::singleton()->setDataDirectory($directory);
-*/
-
 use oat\oatbox\extension\InstallAction;
 use oat\oatbox\filesystem\FileSystemService;
 use oat\taoThemingPlatform\model\PlatformThemingService;
