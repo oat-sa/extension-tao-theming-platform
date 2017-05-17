@@ -18,13 +18,11 @@
  *               
  */
 
-use oat\taoThemingPlatform\model\PlatformThemingService;
-
 /*
  * This post-installation script creates a data storage directory
  * for the taoThemingPlatform extension.
  */
-$dataPath = FILES_PATH . 'taoThemingPlatform' . DIRECTORY_SEPARATOR;
+/*$dataPath = FILES_PATH . 'taoThemingPlatform' . DIRECTORY_SEPARATOR;
 if (file_exists($dataPath)) {
     helpers_File::emptyDirectory($dataPath);
 }
@@ -38,3 +36,38 @@ $directory = new core_kernel_file_File($source->createFile('', 'assets'));
 
 // Assets storage is now set to '/data/taoThemingPlatform/assets'.
 PlatformThemingService::singleton()->setDataDirectory($directory);
+*/
+
+use oat\oatbox\extension\InstallAction;
+use oat\oatbox\filesystem\FileSystemService;
+use oat\taoThemingPlatform\model\PlatformThemingService;
+
+/**
+ * Class createDatasource
+ *
+ * @author Gyula Szucs, <gyula@taotesting.com>
+ */
+class createDatasource extends InstallAction
+{
+    /**
+     * @param array $params
+     * @return \common_report_Report
+     */
+    public function __invoke($params)
+    {
+
+        /** @var FileSystemService $fsService */
+        $fsService = $this->getServiceManager()->get(FileSystemService::SERVICE_ID);
+        $fs = $fsService->createFileSystem(PlatformThemingService::FILE_SYSTEM_ID, 'taoThemingPlatform');
+
+        $fs->createDir('assets');
+
+        $assetsDir = $fsService->getDirectory(PlatformThemingService::FILE_SYSTEM_ID)->getDirectory('assets');
+
+        $this->getServiceManager()->register(FileSystemService::SERVICE_ID, $fsService);
+
+        PlatformThemingService::singleton()->setDataDirectory($assetsDir);
+
+        return new \common_report_Report(\common_report_Report::TYPE_SUCCESS, 'Assets file storage registered.');
+    }
+}

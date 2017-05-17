@@ -20,9 +20,10 @@
 
 namespace oat\taoThemingPlatform\model;
 
+use oat\generis\model\fileReference\ResourceFileSerializer;
+use oat\oatbox\filesystem\Directory;
 use oat\tao\helpers\CssHandler;
 use \tao_models_classes_Service;
-use \core_kernel_file_File;
 use \common_ext_ExtensionsManager;
 use \common_Exception;
 
@@ -48,6 +49,8 @@ class PlatformThemingService extends tao_models_classes_Service
      * @var string
      */
     const CONFIG_KEY_CONF = 'themingPlatformConf';
+
+    const FILE_SYSTEM_ID = 'themingAssetsStorage';
     
     /**
      * A PlatformThemingConfig cache property.
@@ -110,12 +113,13 @@ class PlatformThemingService extends tao_models_classes_Service
     /**
      * Set the data storage directory.
      * 
-     * @param core_kernel_file_File $directory
+     * @param Directory $directory
      */
-    public function setDataDirectory(core_kernel_file_File $directory)
+    public function setDataDirectory(Directory $directory)
     {
         $ext = common_ext_ExtensionsManager::singleton()->getExtensionById('taoThemingPlatform');
-        $ext->setConfig(self::CONFIG_KEY_DATA, $directory->getUri());
+
+        $ext->setConfig(self::CONFIG_KEY_DATA, $this->getFileReferenceSerializer()->serialize($directory));
     }
     
     /**
@@ -124,7 +128,7 @@ class PlatformThemingService extends tao_models_classes_Service
      * You can call core_kernel_file_File::getAbsolutePath() and/or core_kernel_file_File::getRelativePath()
      * on the return object to know where to store data assets.
      * 
-     * @return core_kernel_file_File
+     * @return Directory
      * @throws common_exception If no default data storage directory is configured.
      */
     public function getDataDirectory()
@@ -135,8 +139,17 @@ class PlatformThemingService extends tao_models_classes_Service
         if (empty($uri)) {
             throw new common_Exception('No datasource defined for taoThemingPlatform data storage.');
         }
-        
-        return new core_kernel_file_File($uri);
+
+        return $this->getFileReferenceSerializer()->unserializeDirectory($uri);
+    }
+
+    /**
+     * Get serializer to persist filesystem object
+     * @return ResourceFileSerializer
+     */
+    protected function getFileReferenceSerializer()
+    {
+        return $this->getServiceLocator()->get(ResourceFileSerializer::SERVICE_ID);
     }
     
     /**
@@ -157,33 +170,31 @@ class PlatformThemingService extends tao_models_classes_Service
      */
     public function storeFile($filePath, $finalName = '')
     {
-        $dir = $this->getDataDirectory();
-        $dataPath = $dir->getAbsolutePath();
-        $pathParts = pathinfo($filePath);
-        $basePath = rtrim($dataPath, "\\/") . DIRECTORY_SEPARATOR;
-       
-        if (empty($finalName) === true) {
-            $finalPath = $basePath . $pathParts['basename'];
-        } else {
-            $finalPath = $basePath . ltrim($finalName, "\\/");
-        }
-        
-        file_put_contents($finalPath, file_get_contents($filePath));
+        $filesystem = $this->getDataDirectory()
+            ->getFileSystem();
 
-        return basename($finalPath);
+        if (empty($finalName)) {
+            $finalName = pathinfo($filePath, PATHINFO_BASENAME);
+        }
+
+        $stream = fopen($filePath, 'r+');
+        $filesystem->writeStream($finalName, $stream);
+        fclose($stream);
+
+        return $finalName;
     }
-    
+
     /**
      * Whether or not a give $fileName exists in the data directory.
-     * 
+     *
      * @param string $fileName
+     * @return bool
      */
-    public function hasFile($fileName) {
-        $dir = $this->getDataDirectory();
-        $dataPath = $dir->getAbsolutePath();
-        $path = rtrim($dataPath, "\\/") . DIRECTORY_SEPARATOR . trim($fileName, "\\/");
-        
-        return @is_file($path);
+    public function hasFile($fileName)
+    {
+        return $this->getDataDirectory()
+            ->getFileSystem()
+            ->has($fileName);
     }
 
 

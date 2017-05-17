@@ -183,22 +183,21 @@ class Main extends tao_actions_CommonModule {
      * Get a file from the data directory as the HTTP response with the appropriate
      * content-type header set.
      */
-    public function getFile() {
-        $file = $this->getRequestParameter('file');
-        $service = PlatformThemingService::singleton();
-        $dataDirectory = $service->getDataDirectory();
-        
-        $finalPath = rtrim($dataDirectory->getAbsolutePath(), "\\/") . DIRECTORY_SEPARATOR . $file;
-        
-        if (tao_helpers_File::securityCheck($finalPath, true) === false) {
+    public function getFile()
+    {
+        $file = PlatformThemingService::singleton()
+            ->getDataDirectory()
+            ->getFile($this->getRequestParameter('file'));
+
+        if (tao_helpers_File::securityCheck($file->getPrefix(), true) === false) {
             die();
         }
         
-        $mime = tao_helpers_File::getMimeType($finalPath, true);
         if($this->hasRequestParameter('download')){
             header('Content-disposition: attachment; filename=theme.css');
         }
-        header('Content-Type: ' . $mime);
-        echo file_get_contents($finalPath);
+        header('Content-Type: ' . $file->getMimeType());
+
+        echo $file->read();
     }
 }
