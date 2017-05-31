@@ -26,7 +26,7 @@ return array(
     'version' => '1.1.0',
 	'author' => 'Open Assessment Technologies SA',
 	'requires' => array(
-        'tao' => '>=10.2.0'
+        'tao' => '>=10.15.0'
     ),
 	'managementRole' => 'http://www.tao.lu/Ontologies/generis.rdf#taoThemingPlatformManager',
     'acl' => array(
@@ -35,7 +35,7 @@ return array(
     ),
     'install'	=> array(
         'php'	=> array(
-            dirname(__FILE__).'/scripts/install/createDatasource.php',
+            \oat\taoThemingPlatform\scripts\install\createDatasource::class,
         )
     ),
     'uninstall' => array(

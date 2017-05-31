@@ -125,9 +125,6 @@ class PlatformThemingService extends tao_models_classes_Service
     /**
      * Get a reference on the data storage directory.
      * 
-     * You can call core_kernel_file_File::getAbsolutePath() and/or core_kernel_file_File::getRelativePath()
-     * on the return object to know where to store data assets.
-     * 
      * @return Directory
      * @throws common_exception If no default data storage directory is configured.
      */

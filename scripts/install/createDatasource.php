@@ -18,6 +18,8 @@
  *               
  */
 
+namespace oat\taoThemingPlatform\scripts\install;
+
 use oat\oatbox\extension\InstallAction;
 use oat\oatbox\filesystem\FileSystemService;
 use oat\taoThemingPlatform\model\PlatformThemingService;
