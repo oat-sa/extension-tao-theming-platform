@@ -185,12 +185,20 @@ class Main extends tao_actions_CommonModule {
      */
     public function getFile()
     {
+        if (!$this->hasRequestParameter('file')) {
+           throw new \tao_models_classes_MissingRequestParameterException('file');
+        }
+
         $file = PlatformThemingService::singleton()
             ->getDataDirectory()
             ->getFile($this->getRequestParameter('file'));
 
+        if (!$file->exists()) {
+            throw new \common_exception_NotFound('File not found');
+        }
+
         if (tao_helpers_File::securityCheck($file->getPrefix(), true) === false) {
-            die();
+            throw new \common_exception_ValidationFailed('file', 'securityCheck failed');
         }
         
         if($this->hasRequestParameter('download')){

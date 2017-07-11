@@ -40,6 +40,11 @@ class createDatasource extends InstallAction
 
         /** @var FileSystemService $fsService */
         $fsService = $this->getServiceManager()->get(FileSystemService::SERVICE_ID);
+
+        if ($fsService->getFileSystem(PlatformThemingService::FILE_SYSTEM_ID)) {
+            return new \common_report_Report(\common_report_Report::TYPE_WARNING, 'Assets file storage already exists.');
+        }
+
         $fs = $fsService->createFileSystem(PlatformThemingService::FILE_SYSTEM_ID, 'taoThemingPlatform');
 
         $fs->createDir('assets');
