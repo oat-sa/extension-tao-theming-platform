@@ -23,7 +23,7 @@ return array(
 	'label' => 'Platform Theming',
 	'description' => '',
     'license' => 'GPL-2.0',
-    'version' => '1.0.1',
+    'version' => '2.0.0',
 	'author' => 'Open Assessment Technologies SA',
 	'requires' => array(
         'tao' => '>=9.0'
@@ -35,7 +35,7 @@ return array(
     ),
     'install'	=> array(
         'php'	=> array(
-            dirname(__FILE__).'/scripts/install/createDatasource.php',
+            \oat\taoThemingPlatform\scripts\install\createDatasource::class,
         )
     ),
     'uninstall' => array(

@@ -24,18 +24,11 @@ namespace oat\taoThemingPlatform\scripts\update;
  *
  * @author Joel Bout <joel@taotesting.com>
  */
-class Updater extends \common_ext_ExtensionUpdater {
-
-	/**
-     *
-     * @param string $currentVersion
-     * @return string $versionUpdatedTo
-     */
-    public function update($initialVersion) {
-
-         $this->skip('0.0.0','1.0.1');
-
-
-        return null;
+class Updater extends \common_ext_ExtensionUpdater
+{
+    public function update($initialVersion)
+    {
+         $this->skip('0.0.0','2.0.0');
+         return null;
     }
 }
