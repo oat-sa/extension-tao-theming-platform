@@ -23,7 +23,7 @@ return array(
 	'label' => 'Platform Theming',
 	'description' => '',
     'license' => 'GPL-2.0',
-    'version' => '2.0.1',
+    'version' => '2.0.2',
 	'author' => 'Open Assessment Technologies SA',
 	'requires' => array(
         'tao' => '>=9.0'
