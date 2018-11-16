@@ -23,10 +23,10 @@ return array(
 	'label' => 'Platform Theming',
 	'description' => '',
     'license' => 'GPL-2.0',
-    'version' => '2.0.2',
+    'version' => '3.0.0',
 	'author' => 'Open Assessment Technologies SA',
 	'requires' => array(
-        'tao' => '>=9.0'
+        'tao' => '>=21.0.0'
     ),
 	'managementRole' => 'http://www.tao.lu/Ontologies/generis.rdf#taoThemingPlatformManager',
     'acl' => array(
