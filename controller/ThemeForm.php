@@ -21,6 +21,7 @@
 
 namespace oat\taoThemingPlatform\controller;
 
+use oat\tao\model\routing\AnnotationReader\security;
 use oat\taoThemingPlatform\model\PlatformThemingConfig;
 
 /**
@@ -34,9 +35,13 @@ class ThemeForm
     extends \tao_helpers_form_FormContainer
 {
 
+    /**
+     * ThemeForm constructor.
+     * @param array $options
+     * @security("hide")
+     */
     public function __construct($options = array())
     {
-
         parent::__construct(array(), $options);
 
     }
