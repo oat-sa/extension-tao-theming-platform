@@ -39,13 +39,6 @@ use oat\taoThemingPlatform\model\PlatformThemingConfig;
 class Main extends tao_actions_CommonModule {
 
     /**
-     * initialize the Controller.
-     */
-    public function __construct(){
-        parent::__construct();
-    }
-
-    /**
      * @return PlatformThemingService
      */
     protected function getPlatformService(){
@@ -56,7 +49,6 @@ class Main extends tao_actions_CommonModule {
      * Main Controller Action.
      */
     public function index() {
-
 
         $themingConfig = $this->getPlatformService()->retrieveThemingConfig();
 
