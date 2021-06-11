@@ -1,0 +1,102 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: TAO 3.1.0-sprint04\n"
+"PO-Revision-Date: 2015-08-05T09:13:43\n"
+"Last-Translator: TAO Translation Team <translation@tao.lu>\n"
+"MIME-Version: 1.0\n"
+"Language: en-US\n"
+"sourceLanguage: en-US\n"
+"targetLanguage: en-US\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Basepath: ../../\n"
+"X-Poedit-KeywordsList: __\n"
+"X-Poedit-SearchPath-0: .\n"
+
+msgid "Action bar"
+msgstr "アクションバー"
+
+msgid "Active tab"
+msgstr "アクティブタブ"
+
+msgid "Alternative text of the logo"
+msgstr "ロゴの代替えテキスト"
+
+msgid "Background Color"
+msgstr "背景色"
+
+msgid "Background color"
+msgstr "背景色"
+
+msgid "Cancel"
+msgstr "キャンセル"
+
+msgid "Click on the elements below to change the appearance of the platform."
+msgstr "プラットフォームの外観を変更するには、以下の要素をクリックしてください。"
+
+msgid "Copyright notice"
+msgstr "著作権表記"
+
+msgid "Customize Platform"
+msgstr "プラットフォームのカスタマイズ"
+
+msgid "Download CSS"
+msgstr "CSSダウンロード"
+
+msgid "Header and Footer"
+msgstr "ヘッダとフッター"
+
+#, tao-public
+msgid "Layout"
+msgstr "レイアウト"
+
+msgid "Link on logo click"
+msgstr "ロゴをクリックするとリンク"
+
+msgid "Login field"
+msgstr "ログインフィールド"
+
+msgid "Login message"
+msgstr "ログインメッセージ"
+
+msgid "Logo"
+msgstr "ロゴ"
+
+msgid "Password field"
+msgstr "パスワードフィールド"
+
+#, tao-public
+msgid "Platform Theming"
+msgstr "プラットフォームのテーマ設定"
+
+msgid "Save"
+msgstr "保存"
+
+msgid "Stable status"
+msgstr "安定した状態"
+
+msgid "Style modified"
+msgstr "スタイル変更"
+
+msgid "Text Color"
+msgstr "テキスト色"
+
+msgid "This will override your previous theme"
+msgstr "前のテーマが上書きされます"
+
+#, tao-public
+msgid "Tools"
+msgstr "ツール"
+
+msgid "Upload CSS"
+msgstr "CSSアップロード"
+
+msgid "Upload your custom CSS"
+msgstr "カスタムCSSアップロード"
+
+msgid "Upload your logo"
+msgstr "ロゴのアップロード"
+
+msgid "Your theme has been saved"
+msgstr "テーマが保存されました"
+
