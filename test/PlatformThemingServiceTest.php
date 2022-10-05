@@ -29,7 +29,7 @@ class PlatformThemingServiceTest extends TaoPhpUnitTestRunner
     private $service = null;
     private $tempConfig = null;
     
-    public function tearDown()
+    public function tearDown(): void
     {
         parent::tearDown();
         
@@ -45,7 +45,7 @@ class PlatformThemingServiceTest extends TaoPhpUnitTestRunner
         unset($service);
     }
     
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         
