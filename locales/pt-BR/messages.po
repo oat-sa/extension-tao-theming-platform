@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: TAO 2023.05\n"
-"PO-Revision-Date: 2023-04-18T13:40:53\n"
+"PO-Revision-Date: 2023-04-18T16:06:56\n"
 "Last-Translator: TAO Translation Team <translation@tao.lu>\n"
 "MIME-Version: 1.0\n"
 "Language: pt-BR\n"
@@ -23,13 +23,13 @@ msgid "Alternative text of the logo"
 msgstr ""
 
 msgid "Background color"
-msgstr "Cor de fundo"
+msgstr ""
 
 msgid "Background Color"
-msgstr "Cor de Fundo"
+msgstr ""
 
 msgid "Cancel"
-msgstr "Cancelar"
+msgstr ""
 
 msgid "Click on the elements below to change the appearance of the platform."
 msgstr ""
@@ -60,7 +60,7 @@ msgid "Login message"
 msgstr ""
 
 msgid "Logo"
-msgstr "Logotipo"
+msgstr ""
 
 msgid "Password field"
 msgstr ""
@@ -70,7 +70,7 @@ msgid "Platform Theming"
 msgstr ""
 
 msgid "Save"
-msgstr "Salvar"
+msgstr ""
 
 msgid "Stable status"
 msgstr ""
