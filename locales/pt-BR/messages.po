@@ -1,0 +1,109 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: tao-3x\n"
+"PO-Revision-Date: 2023-04-21 15:46\n"
+"Last-Translator: TAO Translation Team <translation@tao.lu>\n"
+"MIME-Version: 1.0\n"
+"Language: pt\n"
+"sourceLanguage: en-US\n"
+"targetLanguage: pt-BR\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Basepath: ../../\n"
+"X-Poedit-KeywordsList: __\n"
+"X-Poedit-SearchPath-0: .\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Crowdin-Project: tao-3x\n"
+"X-Crowdin-Project-ID: 582145\n"
+"X-Crowdin-Language: pt-BR\n"
+"X-Crowdin-File: /taoThemingPlatform/locales/pt-BR/messages.po\n"
+"X-Crowdin-File-ID: 1775\n"
+"Language-Team: Portuguese, Brazilian\n"
+
+msgid "Action bar"
+msgstr "Barra de ação"
+
+msgid "Active tab"
+msgstr "Barra Ativa"
+
+msgid "Alternative text of the logo"
+msgstr "Texto alternativo do logotipo"
+
+msgid "Background color"
+msgstr "Cor do fundo"
+
+msgid "Background Color"
+msgstr "Cor do Fundo"
+
+msgid "Cancel"
+msgstr "Cancelar"
+
+msgid "Click on the elements below to change the appearance of the platform."
+msgstr "Clique nos elementos abaixo para alterar a aparência da plataforma."
+
+msgid "Copyright notice"
+msgstr "Aviso de copyright"
+
+msgid "Customize Platform"
+msgstr "Personalizar Plataforma"
+
+msgid "Download CSS"
+msgstr "Baixar CSS"
+
+msgid "Header and Footer"
+msgstr "Cabeçalho e Rodapé"
+
+#, tao-public
+msgid "Layout"
+msgstr "Layout"
+
+msgid "Link on logo click"
+msgstr "Link no clique do logo"
+
+msgid "Login field"
+msgstr "Campo Acesso"
+
+msgid "Login message"
+msgstr "Mensagem de acesso"
+
+msgid "Logo"
+msgstr "Logo"
+
+msgid "Password field"
+msgstr "Campo de senha"
+
+#, tao-public
+msgid "Platform Theming"
+msgstr "Tema da plataforma"
+
+msgid "Save"
+msgstr "Salvar"
+
+msgid "Stable status"
+msgstr "Status estável"
+
+msgid "Style modified"
+msgstr "Estilo modificado"
+
+msgid "Text Color"
+msgstr "Cor do texto"
+
+msgid "This will override your previous theme"
+msgstr "Isto substituirá seu tema anterior"
+
+#, tao-public
+msgid "Tools"
+msgstr "Ferramentas"
+
+msgid "Upload CSS"
+msgstr "Carregar CSS"
+
+msgid "Upload your custom CSS"
+msgstr "Carregar seu CSS personalizado"
+
+msgid "Upload your logo"
+msgstr "Fazer upload da sua logo"
+
+msgid "Your theme has been saved"
+msgstr "Seu tema foi salva"
+
