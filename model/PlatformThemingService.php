@@ -195,7 +195,7 @@ class PlatformThemingService extends tao_models_classes_Service
     {
         return $this->getDataDirectory()
             ->getFileSystem()
-            ->has($fileName);
+            ->fileExists($fileName);
     }
 
 
