@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -15,7 +16,6 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  *
  * Copyright (c) 2015 (original work) Open Assessment Technologies SA
- *
  */
 
 namespace oat\taoThemingPlatform\test;
@@ -35,16 +35,16 @@ class PlatformThemingServiceTest extends TaoPhpUnitTestRunner
     private $tempConfig = null;
     private $serviceManager = null;
     private $tempRoot = null;
-    
+
     public function tearDown(): void
     {
         parent::tearDown();
-        
+
         // Restore previous Theming config...
         if ($this->service && $this->tempConfig) {
             $this->service->syncThemingConfig($this->tempConfig);
         }
-        
+
         // Deal with data storage.
         if ($this->service) {
             $filesystem = $this->service->getDataDirectory()->getFileSystem();
@@ -54,14 +54,14 @@ class PlatformThemingServiceTest extends TaoPhpUnitTestRunner
         }
         @unlink(rtrim(sys_get_temp_dir(), "\\/") . '/tmp-platformthemingtest.txt');
         @unlink(rtrim(sys_get_temp_dir(), "\\/") . '/tmp-mynewname.txt');
-        
+
         if ($this->tempRoot && is_dir($this->tempRoot)) {
             $this->removeDirectory($this->tempRoot);
         }
 
         unset($service);
     }
-    
+
     public function setUp(): void
     {
         parent::setUp();
@@ -76,18 +76,20 @@ class PlatformThemingServiceTest extends TaoPhpUnitTestRunner
 
         $adapterId = 'local-test-adapter';
         $directoryId = 'theming-test-fs';
-        $fileSystemService = new FileSystemService([
-            FileSystemService::OPTION_ADAPTERS => [
-                $adapterId => [
-                    'class' => LocalFilesystemAdapter::class,
-                    'options' => ['root' => $this->tempRoot],
+        $fileSystemService = new FileSystemService(
+            [
+                FileSystemService::OPTION_ADAPTERS => [
+                    $adapterId => [
+                        'class' => LocalFilesystemAdapter::class,
+                        'options' => ['root' => $this->tempRoot],
+                    ],
                 ],
-            ],
-            FileSystemService::OPTION_DIRECTORIES => [
-                $directoryId => $adapterId,
-            ],
-            FileSystemService::OPTION_FILE_PATH => $this->tempRoot,
-        ]);
+                FileSystemService::OPTION_DIRECTORIES => [
+                    $directoryId => $adapterId,
+                ],
+                FileSystemService::OPTION_FILE_PATH => $this->tempRoot,
+            ]
+        );
         $fileSystemService->setServiceLocator($this->serviceManager);
         $this->serviceManager->overload(FileSystemService::SERVICE_ID, $fileSystemService);
 
@@ -98,23 +100,23 @@ class PlatformThemingServiceTest extends TaoPhpUnitTestRunner
         $extensionManager = new TestExtensionManager();
         $extensionManager->setServiceLocator($this->serviceManager);
         $this->serviceManager->overload(\common_ext_ExtensionsManager::SERVICE_ID, $extensionManager);
-        
+
         $this->service = PlatformThemingService::singleton();
 
         $dataDirectory = $fileSystemService->getDirectory($directoryId)->getDirectory('assets');
         $this->service->setDataDirectory($dataDirectory);
-        
+
         // Save current Theming config...
         $this->tempConfig = $this->service->retrieveThemingConfig();
-        
+
         // Set up all tests with an empty Theming Configuration.
         $this->service->syncThemingConfig(new PlatformThemingConfig());
-        
+
         // Deal with data storage.
         $testFile = rtrim(sys_get_temp_dir(), "\\/") . '/tmp-platformthemingtest.txt';
         file_put_contents($testFile, 'data');
     }
-    
+
     /**
      * Aims at testing that a proper empty theming configuration is set.
      */
@@ -123,19 +125,19 @@ class PlatformThemingServiceTest extends TaoPhpUnitTestRunner
         $conf = $this->service->retrieveThemingConfig();
         $this->assertEquals(0, count($conf));
     }
-    
+
     public function testSyncThemingConfig()
     {
         $conf = $this->service->retrieveThemingConfig();
         $conf['key1'] = 'value1';
-        
+
         $this->service->syncThemingConfig($conf);
         $conf = $this->service->retrieveThemingConfig();
-        
+
         $this->assertEquals(1, count($conf));
         $this->assertEquals('value1', $conf['key1']);
     }
-    
+
     /**
      * Aims at testing that the data directors is correctly configured.
      */
@@ -145,7 +147,7 @@ class PlatformThemingServiceTest extends TaoPhpUnitTestRunner
         $dataDirectory = $this->service->getDataDirectory();
         $this->assertEquals('assets', $dataDirectory->getPrefix());
     }
-    
+
     /**
      * @depends testGetDataDirectory
      */
@@ -155,7 +157,7 @@ class PlatformThemingServiceTest extends TaoPhpUnitTestRunner
         $this->service->storeFile($filePath);
         $filesystem = $this->service->getDataDirectory()->getFileSystem();
         $this->assertEquals('data', $filesystem->read('tmp-platformthemingtest.txt'));
-        
+
         $this->service->storeFile($filePath, 'tmp-mynewname.txt');
         $this->assertEquals('data', $filesystem->read('tmp-mynewname.txt'));
     }
