@@ -86,28 +86,28 @@ class PlatformThemingConfigTest extends TaoPhpUnitTestRunner
     
     public function testOutOfRangeSet()
     {
-        $this->setExpectedException('\\OutOfRangeException');
+        $this->expectException('\\OutOfRangeException');
         $config = new PlatformThemingConfig();
         $config[0] = 'val1';
     }
     
     public function testOutOfRangeGet()
     {
-        $this->setExpectedException('\\OutOfRangeException');
+        $this->expectException('\\OutOfRangeException');
         $config = new PlatformThemingConfig();
         $val = $config[0];
     }
     
     public function testOutOfRangeExists()
     {
-        $this->setExpectedException('\\OutOfRangeException');
+        $this->expectException('\\OutOfRangeException');
         $config = new PlatformThemingConfig();
         $isset = isset($config[0]);
     }
     
     public function testOutOfRangeUnset()
     {
-        $this->setExpectedException('\\OutOfRangeException');
+        $this->expectException('\\OutOfRangeException');
         $config = new PlatformThemingConfig();
         unset($config[0]);
     }
