@@ -111,7 +111,7 @@ class PlatformThemingConfigTest extends TaoPhpUnitTestRunner
         $config = new PlatformThemingConfig();
         unset($config[0]);
     }
-    
+
     public function testUnsetWithNothingSet()
     {
         // Should produce nothing...
