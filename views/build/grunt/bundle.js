@@ -29,6 +29,7 @@ module.exports = function(grunt) {
                 options : {
                     extension : 'taoThemingPlatform',
                     outputDir : 'loader',
+                    babelPreTransform: { enabled: true },
                     bundles : [{
                         name : 'taoThemingPlatform',
                         default : true
